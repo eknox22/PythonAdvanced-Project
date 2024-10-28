@@ -9,8 +9,8 @@ with open(filename, 'r') as csvfile:
   reader = csv.DictReader(csvfile)
   for line in reader:
     continent = line['continent']
-    year = line['year']
-    population = line['population']
+    year = int(line['year'])
+    population = int(line['population'])
 
     # Print out the data from each row of the CSV file
 
@@ -27,18 +27,16 @@ with open(filename, 'r') as csvfile:
     population_per_continent[continent]['population'].append(population)
     population_per_continent[continent]['years'].append(year)
 
+#Extract the years and population from the continets
+for continent in population_per_continent:
+  years = population_per_continent[continent]['years']
+  population = population_per_continent[continent]['population']
+  plt.plot(years, population, label=continent, marker='o')
 
-
-plt.plot([2000, 2010, 2020, 2030], [100, 200, 300, 400],
-         label="Europe",
-         marker='o')
-plt.plot([2000, 2010, 2020, 2030], [200, 600, 400, 100],
-         label="Asia",
-         marker='o')
 
 plt.title('Internet Population per continent')
 plt.xlabel('Year')
-plt.ylabel('Internet users')
+plt.ylabel('Internet users (in billions)')
 plt.grid(True)
 plt.legend()
 
